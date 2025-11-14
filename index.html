@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sorry with Plot Twist</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f6d365, #fda085);
+}
+
+.card {
+    position: relative;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 400px;
+}
+
+button {
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    background-color: #3498db;
+    color: white;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #2980b9;
+}
+
+#twist, #forgiveSection, #thankYou {
+    display: none;
+    margin-top: 20px;
+}
+
+#noBtn {
+    position: absolute;
+    left: 150px;
+    top: 50px;
+    transition: 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+    <h1>I'm really sorry Jil...</h1>
+    <p id="instruction">Click the button to see the full truth!</p>
+    <button id="revealBtn">Reveal</button>
+
+    <p id="twist">I’m not just sorry — I owe you ice cream! 🍦😄</p>
+
+    <div id="forgiveSection">
+        <p>Will you forgive me?</p>
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <p id="thankYou">Thank you for forgiving me! ❤️</p>
+</div>
+
+<script>
+const revealBtn = document.getElementById('revealBtn');
+const twist = document.getElementById('twist');
+const forgiveSection = document.getElementById('forgiveSection');
+const thankYou = document.getElementById('thankYou');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const card = document.getElementById('card');
+
+// Step 1: Reveal twist
+revealBtn.addEventListener('click', () => {
+    revealBtn.style.display = 'none';
+    document.getElementById('instruction').style.display = 'none';
+    twist.style.display = 'block';
+
+    // After 2 seconds, hide twist and show forgiveness section
+    setTimeout(() => {
+        twist.style.display = 'none';
+        forgiveSection.style.display = 'block';
+        noBtn.style.left = '150px';
+        noBtn.style.top = '50px';
+    }, 2000);
+});
+
+// Step 2: Yes button
+yesBtn.addEventListener('click', () => {
+    forgiveSection.style.display = 'none';
+    thankYou.style.display = 'block';
+});
+
+// Step 3: Make No button dodge
+noBtn.addEventListener('mouseenter', () => {
+    const cardRect = card.getBoundingClientRect();
+    const maxX = cardRect.width - noBtn.offsetWidth - 10;
+    const maxY = cardRect.height - noBtn.offsetHeight - 10;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+    noBtn.style.left = newX + 'px';
+    noBtn.style.top = newY + 'px';
+});
+</script>
+
+</body>
+</html>
